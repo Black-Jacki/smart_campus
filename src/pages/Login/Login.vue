@@ -42,7 +42,7 @@
             ></el-input>
             <div class="cap-img"></div>
           </div>
-          <el-button class="btn-login" type="success">登 录</el-button>
+          <el-button class="btn-login" type="success" @click="btn_login">登 录</el-button>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -54,7 +54,7 @@ export default {
   name: "login",
   data() {
     return {
-      activeName: 'second',
+      activeName: "second",
       username: "",
       password: "",
       captcha: "",
@@ -62,8 +62,24 @@ export default {
   },
   methods: {
     handleClick(tab, event) {
-        null;
+      null;
+    },
+    btn_login() {
+      let that = this
+      if (that.captcha == '2vxy' || that.captcha == '2VXY') {
+        if (that.username == 123456) {
+          if (that.password == 123456) {
+            that.$router.push('/details')
+          } else {
+            alert('密码错误！')
+          }
+        } else {
+          alert('用户名错误！')
+        }
+      } else {
+        alert('验证码错误！')
       }
+    }
   },
 };
 </script>
