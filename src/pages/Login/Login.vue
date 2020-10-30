@@ -5,56 +5,46 @@
       <div class="xiaoyuan-mingcheng">浦东二中心智慧校园</div>
     </div>
     <div class="change-tabs">
-      <div
-        class="saoma-login"
-        :class="{ 'login-text-on': !isPasswd }"
-        @click="isPasswd = false"
+      <el-tabs
+        class="title-tabs-box"
+        v-model="activeName"
+        @tab-click="handleClick"
       >
-        微信扫码登录
-      </div>
-      <div
-        class="passwd-login"
-        @click="isPasswd = true"
-        :class="{ 'login-text-on': isPasswd }"
-      >
-        帐号密码登录
-      </div>
-    </div>
-    <div class="login-box">
-      <div class="erweima" v-if="!isPasswd">
-        <div class="erweima-img"></div>
-        <div class="erweima-tips">
-          通过小程序完成绑定的用户,请使用微信扫一扫快捷登录
-        </div>
-      </div>
-      <div class="user-pd-box" v-if="isPasswd">
-        <el-input
-          placeholder="用户名"
-          prefix-icon="el-icon-user"
-          v-model="username"
-          class="ipt-user"
-          size="medium"
-        >
-        </el-input>
-        <el-input
-          placeholder="密码"
-          prefix-icon="el-icon-lock"
-          v-model="password"
-          show-password
-          class="ipt-pd"
-          size="medium"
-        ></el-input>
-        <div class="cap-box">
+        <el-tab-pane label="微信扫码登录" name="first">
+          <div class="erweima-img"></div>
+          <div class="erweima-tips">
+            通过小程序完成绑定的用户,请使用微信扫一扫快捷登录
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="帐号密码登录" name="second">
           <el-input
-            v-model="captcha"
-            placeholder="请输入验证码"
-            class="ipt-cap"
+            placeholder="用户名"
+            prefix-icon="el-icon-user"
+            v-model="username"
+            class="ipt-user"
+            size="medium"
+          >
+          </el-input>
+          <el-input
+            placeholder="密码"
+            prefix-icon="el-icon-lock"
+            v-model="password"
+            show-password
+            class="ipt-pd"
             size="medium"
           ></el-input>
-          <div class="cap-img"></div>
-        </div>
-        <el-button class="btn-login" type="success">登 录</el-button>
-      </div>
+          <div class="cap-box">
+            <el-input
+              v-model="captcha"
+              placeholder="请输入验证码"
+              class="ipt-cap"
+              size="medium"
+            ></el-input>
+            <div class="cap-img"></div>
+          </div>
+          <el-button class="btn-login" type="success">登 录</el-button>
+        </el-tab-pane>
+      </el-tabs>
     </div>
   </div>
 </template>
@@ -64,21 +54,40 @@ export default {
   name: "login",
   data() {
     return {
-      isPasswd: true,
+      activeName: 'second',
       username: "",
       password: "",
       captcha: "",
     };
   },
-  methods: {},
+  methods: {
+    handleClick(tab, event) {
+        null;
+      }
+  },
 };
 </script>
+
+<style>
+.title-tabs-box {
+  width: 295px;
+}
+.title-tabs-box .el-tabs__item.is-active {
+  color: #5cb85c;
+}
+.title-tabs-box .el-tabs__item:hover {
+  color: #7ad87a;
+}
+.title-tabs-box .el-tabs__active-bar {
+  background-color: #5cb85c;
+}
+</style>
 
 <style scoped>
 .title-box {
   display: flex;
   flex-direction: row;
-  width: 278px;
+  width: 295px;
   margin: 22vh auto 0;
 }
 .logo {
@@ -93,28 +102,11 @@ export default {
   margin-left: 10px;
 }
 .change-tabs {
-  width: 278px;
+  width: 295px;
   height: 50px;
   margin: 20px auto;
   display: flex;
   flex-direction: row;
-  border-bottom: 1px solid #eeeeee;
-}
-.saoma-login,
-.passwd-login {
-  font: normal 14px/50px "Microsoft Yahei";
-  color: #666666;
-}
-.saoma-login:hover,
-.passwd-login:hover {
-  color: #7ad87a;
-}
-.passwd-login {
-  margin-left: 40px;
-}
-.login-text-on {
-  color: #5cb85c;
-  border-bottom: 2px solid #5cb85c;
 }
 .erweima-img {
   background: url("./images/erweima.jpg") no-repeat;
@@ -124,20 +116,16 @@ export default {
   margin: auto;
 }
 .erweima-tips {
-  font-size: 13px;
+  font-size: 12px;
   color: #666666;
   text-align: center;
-  margin-top: 20px;
-}
-.user-pd-box {
-  display: flex;
-  flex-direction: column;
+  margin-top: 15px;
 }
 .ipt-user,
 .ipt-pd,
 .cap-box,
 .btn-login {
-  width: 278px;
+  width: 295px;
   margin: 0 auto;
   display: flex;
   flex-direction: row;
@@ -150,7 +138,8 @@ export default {
   background-size: 100%;
   width: 118px;
   height: 40px;
-  margin: 15px 0 0 5px;
+  margin: 15px 0 0 10px;
+  cursor: pointer;
 }
 .ipt-pd,
 .ipt-cap {
@@ -160,7 +149,7 @@ export default {
   background: #5cb85c;
   height: 34px;
   padding: 0;
-  font: normal 14px/34px 'Microsoft Yahei';
+  font: normal 14px/34px "Microsoft Yahei";
   margin-top: 20px;
   justify-content: center;
 }
